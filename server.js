@@ -6,17 +6,17 @@ var io = require('socket.io')(http);
 
 app.use(express.static(__dirname + '/public'));
 
-io.on('connection', function (sokkur) {
-    console.log('User connected via sokkur.io');
+io.on('connection', function (socket) {
+    console.log('User connected via socket.io');
 
-    sokkur.on('message', function (message) {
+    socket.on('message', function (message) {
         console.log('Message recived' +message.text);
 
-        sokkur.broadcast.emit('message', message);
+        socket.broadcast.emit('message', message);
 
     });
 
-    sokkur.emit('message', {
+    socket.emit('message', {
         text: 'Welcome to the chat application'
     });
 });
