@@ -4,8 +4,18 @@ var socket = io();
 
 console.log(name + ' wants to join ' + room);
 
+// Update room name
+var $chatTitle = jQuery('.room-title');
+$chatTitle.text(room);
+
+// Connect to chat with name to spesific room
+// User sends request to server.js socket.on(joinRoom)
 socket.on('connect', function () {
     console.log('User connected to socket');
+    socket.emit('joinRoom', {
+        name: name,
+        room: room
+    });
 });
 
 socket.on('message', function (message) {
