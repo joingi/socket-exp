@@ -21,13 +21,19 @@ socket.on('connect', function () {
 socket.on('message', function (message) {
     var momentTimestamp = moment.utc(message.timestamp);
     var localTimestamp = momentTimestamp.local().format('h:mm a');
-    var $message = jQuery('.messages');
+    // Selects the messages class in chat.html
+    var $messages = jQuery('.messages');
+    // Create new list element
+    var $message = jQuery('<li class="list-group-item"></li>');
 
     console.log('New message');
     console.log(message.text);
 
+    // Appends p element to li element
     $message.append('<p><strong>' + message.name + ' ' + localTimestamp + '</strong></p>');
     $message.append('<p>' + message.text + '</p>');
+    // Appends the li element to the front end
+    $messages.append($message);
 });
 
 // Handles submiting new message
